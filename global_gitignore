@@ -1,0 +1,9 @@
+*.orig
+*.swo
+*.swp
+*~
+.DS_Store
+.DS_Store?
+Icon?
+Thumbs.db
+\#*\#
