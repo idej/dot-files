@@ -11,7 +11,7 @@
   editor = vim -f
   autocrlf = input
   safecrlf = true
-  excludesfile = $HOME/.global_gitignore
+  excludesfile = $HOME/.gitignore
 [advice]
   statusHints = false
 [web]
