@@ -14,22 +14,26 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'Rename2'
 Bundle 'Sass'
 Bundle 'Tabular'
-Bundle 'ack.vim'
-Bundle 'slim-template/vim-slim'
+Bundle 'epmatsw/ag.vim'
+Bundle 'dsawardekar/ember.vim'
+"Bundle 'othree/html5-syntax.vim'
+"Bundle 'tpope/vim-commentary.vim'
+Bundle 'tpope/vim-abolish.vim'
+Bundle 'jelera/vim-javascript-syntax.vim'
+Bundle 'endwise.vim'
+Bundle 'slim-template/vim-slim.vim'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'croaker/mustang-vim'
 Bundle 'csv.vim'
 Bundle 'ctrlp.vim'
 Bundle 'cucumber.zip'
 Bundle 'ecomba/vim-ruby-refactoring'
-Bundle 'endwise.vim'
 Bundle 'fugitive.vim'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'less.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'splitjoin.vim'
 Bundle 'surround.vim'
-Bundle 'tComment'
 Bundle 'tpope/vim-rails'
 Bundle 'unimpaired.vim'
 Bundle 'vim-coffee-script'
@@ -37,7 +41,6 @@ Bundle 'snipMate'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""[COLORSCHEME]
 
-"set dark background and color scheme
 colorscheme mustang
 
 " Ignore backspace and delete keys
