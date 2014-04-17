@@ -60,7 +60,9 @@ set directory=$HOME/.vim/tmp//,.          " Keep swap files in one location
 set expandtab                             " User spaces instead of tabs
 set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866 " Order of file encoding recognition attempts
 set ffs=unix,dos,mac                      " Order of line endings recognition attempts
-set nofoldenable 
+set foldlevel=20
+set foldlevelstart=20
+set foldmethod=syntax    
 set hlsearch                              " Highlight search results
 set ignorecase                            " Ignore case when searching
 set incsearch                             " Highlight search results while inputting
