@@ -1,6 +1,6 @@
 " set up bundler
-set nocompatible           
-filetype off 
+set nocompatible
+filetype off
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -48,7 +48,10 @@ colorscheme mustang
 syntax on                                 " show syntax highlighting
 filetype plugin indent on
 
-set autoindent                          
+set nobackup                " no backup and swap files
+set noswapfile
+set nowritebackup
+set autoindent
 set autoread                              " Automatically read reload file from disk if
 set clipboard=unnamed                     " Default copy goes to system clipboard
 set relativenumber                        " Show relative line number
@@ -59,7 +62,7 @@ set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866 " Order of file encoding recognition a
 set ffs=unix,dos,mac                      " Order of line endings recognition attempts
 set foldlevel=20
 set foldlevelstart=20
-set foldmethod=syntax    
+set foldmethod=syntax
 set hlsearch                              " Highlight search results
 set ignorecase                            " Ignore case when searching
 set incsearch                             " Highlight search results while inputting
@@ -67,7 +70,7 @@ set laststatus=2                          " always show status bar
 set list listchars=tab:»·,trail:·         " show extra space characters
 set mat=5                                 " Match blinking
 set matchtime=3
-set noswapfile                            " Don't create swap FileWritePre                       
+set noswapfile                            " Don't create swap FileWritePre
 set scrolloff=5                           " Show 3 lines of context arount the cursor
 set shiftwidth=2                          " Global shift width
 set showmatch
@@ -83,9 +86,31 @@ set wildignore+=*/.git/*,*/tmp/*,*/log/*,*/app/assets/images/*,*/vendor/assets/i
 set wildmenu                              " Enhanced command line completion
 set wildmode=list:longest                 " Complete files like a shell
 set wrap                                  " Turn on line wrapping
+set ruler                 " Show cursor position all the time
+set showcmd                 " Show incomplete commands
 
 runtime macros/matchit.vim                " use % to jump between start/end of methods
 
+" set leader key to comma
+let mapleader = ","
+
+" ctrlp config
+let g:ctrlp_map = '<leader>f'
+let g:ctrlp_max_height = 30
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_match_window_reversed = 0
+
+" use silver searcher for ctrlp
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+" hint to keep lines short
+if exists('+colorcolumn')
+  set colorcolumn=80
+endif
+
+" unmap F1 help
+nmap <F1> :echo<CR>
+imap <F1> <C-o>:echo<CR>
 
 " highlight trailing spaces in annoying red
 highlight ExtraWhitespace ctermbg=1 guibg=red
@@ -95,13 +120,17 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-
+" delete trailing spaces
 function TrimWhiteSpace()
   %s/\s*$//
   ''
 endfunction
 
-map <c-d> :call TrimWhiteSpace()
+map <F8> :call TrimWhiteSpace()<cr>
+
+" toggle spell check with <F5>
+map <F5> :setlocal spell! spelllang=en_us<cr>
+imap <F5> <ESC>:setlocal spell! spelllang=en_us<cr>
 
 " smart way to move between windows
 map <c-j> <c-w>j
@@ -109,8 +138,14 @@ map <c-k> <c-w>k
 map <c-h> <c-w>h
 map <c-l> <c-w>l
 
-" Convert all ruby hashes from 1.8 to 1.9 syntax
-nnoremap cah :%s/:\([^ ]*\)\(\s*\)=>/\1:/g
+" map Silver Searcher
+map <leader>a :Ag!<space>
+
+" search for word under cursor with Silver Searcher
+map <leader>A :Ag! "<C-r>=expand('<cword>')<CR>"
+
+" remove hash with rockets
+vnoremap <leader>h :s/:\(\w*\) *=>/\1:/g<cr>
 
 map <C-N> :NERDTreeTabsToggle<CR>
 map <Leader>n :NERDTreeTabsToggle<CR>
