@@ -55,7 +55,6 @@ set autoindent
 set autoread                              " Automatically read reload file from disk if
 set clipboard=unnamed                     " Default copy goes to system clipboard
 set relativenumber                        " Show relative line number
-set cursorline                            " Hilight current line
 set directory=$HOME/.vim/tmp//,.          " Keep swap files in one location
 set expandtab                             " User spaces instead of tabs
 set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866 " Order of file encoding recognition attempts
@@ -147,8 +146,30 @@ map <leader>A :Ag! "<C-r>=expand('<cword>')<CR>"
 " remove hash with rockets
 vnoremap <leader>h :s/:\(\w*\) *=>/\1:/g<cr>
 
+" Echo on arrow keys
+nnoremap <Left> :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up> :echoe "Use k"<CR>
+nnoremap <Down> :echoe "Use j"<CR>
+
+" map git commands
+map <leader>b :Gblame<cr>
+map <leader>l :!clear && git log -p %<cr>
+map <leader>d :!clear && git diff %<cr>
+
+" rename current file
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'))
+    if new_name != '' && new_name != old_name
+      exec ':saveas ' . new_name
+      exec ':silent !rm ' . old_name
+      redraw!
+    endif
+endfunction
+map <F2> :call RenameFile()<cr>
+
 map <C-N> :NERDTreeTabsToggle<CR>
-map <Leader>n :NERDTreeTabsToggle<CR>
 
 let g:nerdtree_tabs_focus_on_files = 1
 let g:nerdtree_tabs_autoclose = 1
