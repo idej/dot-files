@@ -176,3 +176,7 @@ let g:nerdtree_tabs_autoclose = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeWinSize = 40
 let g:nerdtree_tabs_autoclose=0
+
+
+" hamlc syntax highlighting
+au BufRead,BufNewFile *.hamlc set ft=haml
