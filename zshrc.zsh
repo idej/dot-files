@@ -34,3 +34,6 @@ if which tmux 2>&1 >/dev/null; then
     tmux attach -t hack || tmux new -s hack; exit
   fi
 fi
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+export PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH"
