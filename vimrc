@@ -76,6 +76,9 @@ Plugin 'groenewege/vim-less'
 Plugin 'idanarye/vim-merginal'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'honza/vim-snippets'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'matthewsimo/angular-vim-snippets'
+Plugin 'mattn/emmet-vim'
 " Plugin 'vim-spec-runner'
 " Plugin 'vim-tmux-runner'
 
@@ -85,15 +88,25 @@ call vundle#end()
 colorscheme mustang
 
 syntax on                                 " show syntax highlighting
+filetype plugin on
 filetype plugin indent on
 
 set nobackup                " no backup and swap files
+set history = 100
+
+set undofile                    " Save undo's after file closes
+set undodir=~/.vim/undo         " where to save undo histories
+set undolevels=1000             " How many undos
+set undoreload=10000            " number of lines to save for undo
+
 set noswapfile
 set nowritebackup
-set autoindent
+set autoindent                  " indent on enter
+set smartindent                 " do smart indenting when starting a new line
+set shiftround                  " indent to the closest shiftwidth
 set autoread                              " Automatically read reload file from disk if
 set clipboard=unnamed                     " Default copy goes to system clipboard
-set relativenumber                        " Show relative line number
+set number                                " Show line number
 set directory=$HOME/.vim/tmp//,.          " Keep swap files in one location
 set expandtab                             " User spaces instead of tabs
 set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866 " Order of file encoding recognition attempts
@@ -105,7 +118,6 @@ set hlsearch                              " Highlight search results
 set ignorecase                            " Ignore case when searching
 set incsearch                             " Highlight search results while inputting
 set laststatus=2                          " always show status bar
-set list listchars=tab:»·,trail:·         " show extra space characters
 set mat=5                                 " Match blinking
 set matchtime=3
 set noswapfile                            " Don't create swap FileWritePre
@@ -127,19 +139,50 @@ set wrap                                  " Turn on line wrapping
 set ruler                 " Show cursor position all the time
 set showcmd                 " Show incomplete commands
 
+" Use only 1 space after . when joining lines instead of 2
+set nojoinspaces
+
+" Don't reset cursor to start of line when moving around
+set nostartofline
+
+"show extra space characters
+set list listchars=tab:▸\ ,trail:·,nbsp:_,extends:❯,precedes:❮
+
+set backspace=eol,start,indent
+
 runtime macros/matchit.vim                " use % to jump between start/end of methods
 
-" set leader key to comma
-let mapleader = ","
+"" Autocomplete ids and classes in CSS
+autocmd FileType css,scss,less set iskeyword=@,48-57,_,-,?,!,192-255
+
+" remove search highlighting
+nnoremap <leader>h :noh<cr>
+
+cnoreabbrev W w
+cnoreabbrev Q q
+
+" Limit commit message width and check spelling
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
+" Make those debugger statements painfully obvious
+au BufEnter *.rb syn match error contained "\<binding.pry\>"
+au BufEnter *.rb syn match error contained "\<debugger\>"
+au BufEnter *.js syn match error contained "\<console.log\>"
+au BufEnter *.js syn match error contained "\<debugger\>"
 
 " ctrlp config
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_max_height = 30
-let g:ctrlp_working_path_mode = 0
 let g:ctrlp_match_window_reversed = 0
 
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+
 " use silver searcher for ctrlp
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+
+let g:ctrlp_funky_syntax_highlight = 1
 
 " hint to keep lines short
 if exists('+colorcolumn')
@@ -196,15 +239,18 @@ map <leader>b :Gblame<cr>
 map <leader>l :!clear && git log -p %<cr>
 map <leader>d :!clear && git diff %<cr>
 
+map <Leader>sp :set paste<CR>
+map <Leader>snp :set nopaste<CR>
+
 " rename current file
 function! RenameFile()
   let old_name = expand('%')
   let new_name = input('New file name: ', expand('%'))
-    if new_name != '' && new_name != old_name
-      exec ':saveas ' . new_name
-      exec ':silent !rm ' . old_name
-      redraw!
-    endif
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
 endfunction
 map <F2> :call RenameFile()<cr>
 
@@ -216,6 +262,35 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeWinSize = 40
 let g:nerdtree_tabs_autoclose=0
 
+" CtrlP Delete
+call ctrlp_bdelete#init()
 
+" CtrlP Funky
+let g:ctrlp_extensions = ['funky']
+let g:ctrlp_funky_multi_buffers = 1
+"
+" CtrlP
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_custom_ignore = {
+      \ 'dir': '\.git\|node_modules\|bin\|\.hg\|\.svn\|build\|log\|resources\|coverage\|doc\|tmp\|public/assets\|vendor\|Android\|ios',
+      \ 'file': '\.jpg$\|\.exe$\|\.so$\|tags$\|\.dll$'
+      \ }
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_html_checkers=['']
+
+" let g:syntastic_ruby_checkers=['rubocop']
 " hamlc syntax highlighting
 au BufRead,BufNewFile *.hamlc set ft=haml
+
+let g:user_emmet_mode='n'
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,less,scss EmmetInstall
+
