@@ -92,7 +92,7 @@ filetype plugin on
 filetype plugin indent on
 
 set nobackup                " no backup and swap files
-set history = 100
+set history=1000
 
 set undofile                    " Save undo's after file closes
 set undodir=~/.vim/undo         " where to save undo histories
@@ -294,3 +294,6 @@ let g:user_emmet_mode='n'
 let g:user_emmet_install_global = 0
 autocmd FileType html,css,less,scss EmmetInstall
 
+" SplitJoin
+nmap sk :SplitjoinSplit<cr>
+nmap sj :SplitjoinJoin<cr>
