@@ -19,3 +19,8 @@ Thumbs.db
 *~
 Icon?
 \#*\#
+
+.idea
+.tern-port
+tags
+.pryrc
