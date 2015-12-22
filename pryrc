@@ -6,9 +6,10 @@ Pry.config.hooks.add_hook(:after_session, :say_bye) do
 end
 
 # Prompt with ruby version
-Pry.prompt = [proc { |obj, nest_level| "#{RUBY_VERSION} (#{obj}):#{nest_level} > " }, proc { |obj, nest_level| "#{RUBY_VERSION} (#{obj}):#{nest_level} * " }]
-
-Pry.config.prompt = [proc{"> "}, proc{"| "}]
+Pry.config.prompt = [
+  proc{ |target_self, nest_level| "[#{nest_level}]> "},
+  proc{ |target_self, nest_level| "[#{nest_level}]| "}
+]
 
 #pry aliases
 Pry.commands.alias_command 'e', 'exit'
@@ -22,17 +23,16 @@ if defined?(PryDebugger)
   Pry.commands.alias_command 'f', 'finish'
 end
 
-# Toys methods
 # Stealed from https://gist.github.com/807492
 class Array
-  def self.toy(n=10, &block)
-    block_given? ? Array.new(n,&block) : Array.new(n) {|i| i+1}
+  def self.toy(n = 10, &block)
+    block_given? ? Array.new(n, &block) : Array.new(n) { |_| _ + 1 }
   end
 end
 
 class Hash
-  def self.toy(n=10)
-    Hash[Array.toy(n).zip(Array.toy(n){|c| (96+(c+1)).chr})]
+  def self.toy(n = 10)
+    Hash[Array.toy(n).zip(Array.toy(n) { |c| (96 + (c + 1)).chr })]
   end
 end
 
@@ -45,18 +45,26 @@ Pry.hooks.add_hook :before_session, :rails do |output, target, pry|
 end
 
 if Kernel.const_defined?(:Rails) && Rails.env
-  require File.join(Rails.root,"config","environment")
+  require File.join(Rails.root, "config", "environment")
   require 'rails/console/app'
   require 'rails/console/helpers'
-
   extend Rails::ConsoleMethods
 end
-## Benchmarking
-# Inspired by <http://stackoverflow.com/questions/123494/whats-your-favourite-irb-trick/123834#123834>.
-# def time(repetitions = 100, &block)
-#   require 'benchmark'
-#   Benchmark.measure{ repetitions.times(&block) }
-# end
 
-# loading rails configuration if it is running as a rails console
-# load File.dirname(__FILE__) + '/.railsrc' if defined?(Rails) && Rails.env
+begin
+  require 'rubygems'
+
+  gem = 'awesome_print'
+  if defined?(::Bundler)
+    spec_path = Dir.glob("#{Gem.dir}/specifications/#{gem}-*.gemspec").last
+    return if spec_path.nil?
+
+    spec = Gem::Specification.load spec_path
+    spec.activate
+  end
+
+  require gem
+  Pry.config.print = proc {|output, value| Pry::Helpers::BaseHelpers.stagger_output("=> #{value.ai(indent: 2)}", output)}
+rescue Exception => err
+  warn "Couldn't load #{gem}: #{err}"
+end
