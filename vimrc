@@ -3,68 +3,72 @@ scriptencoding utf-8
 
 let mapleader = " "
 
-" {{ plugins
-" Set up vim-plug
-call g:plug#begin('~/.config/nvim/plugins')
+if &compatible
+  set nocompatible
+endif
+set runtimepath+=~/.config/nvim/plugins/repos/github.com/Shougo/dein.vim
 
-Plug 'benekastah/neomake'
-Plug 'bling/vim-airline'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
-Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
-Plug 'croaker/mustang-vim'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'Chiel92/vim-autoformat'
-Plug 'TagHighlight'
-Plug 'jelera/vim-javascript-syntax', { 'for': 'js' }
-Plug 'pangloss/vim-javascript', { 'for': 'js' }
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'less', 'sass', 'scss'] }
-Plug 'JulesWang/css.vim', { 'for': ['css', 'less', 'sass', 'scss'] }
-Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
-Plug 'briancollins/vim-jst', { 'for': 'jst' }
-Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'plasticboy/vim-markdown', { 'for': 'md' }
-Plug 'dsawardekar/ember.vim', { 'for': 'js' }
-Plug 'gorodinskiy/vim-coloresque'
-Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
-Plug 'isRuslan/vim-es6', { 'for': 'js' }
-Plug 'moll/vim-node', { 'for': 'js' }
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'nsf/gocode', {'rtp': 'vim/'}
-Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-endwise'
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-Plug 'rking/ag.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeTabsToggle' } | Plug 'jistr/vim-nerdtree-tabs'
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'JazzCore/ctrlp-cmatcher' | Plug 'jasoncodes/ctrlp-modified.vim'
-Plug 'tpope/vim-rails', { 'for': 'rb' }
-Plug 'elixir-lang/vim-elixir'
-Plug 'mattn/emmet-vim'
-Plug 'brendonrapp/smyck-vim'
-Plug 'slim-template/vim-slim', { 'for': 'slim' }
+if dein#load_state(expand('~/.config/nvim/plugins/'))
+  call dein#begin(expand('~/.config/nvim/plugins/'))
 
-call g:plug#end()
-" }}
+  call dein#add(expand('~/.config/nvim/plugins/repos/github.com/Shougo/dein.vim'))
+  call dein#add('Shougo/deoplete.nvim', {'on_i': 1})
+  call dein#add('jiangmiao/auto-pairs')
+  call dein#add('brendonrapp/smyck-vim')
+"  call dein#add('benekastah/neomake')
+  call dein#add('bling/vim-airline')
+  call dein#add('tpope/vim-endwise')
+  call dein#add('rking/ag.vim')
+  call dein#add('nathanaelkane/vim-indent-guides')
+  call dein#add('junegunn/vim-easy-align')
+  call dein#add('kendling/taghighlight')
+  call dein#add('Chiel92/vim-autoformat')
+  call dein#add('scrooloose/nerdtree')
+  call dein#add('jistr/vim-nerdtree-tabs')
+  call dein#add('ctrlpvim/ctrlp.vim')
+  call dein#add('JazzCore/ctrlp-cmatcher', {'build': './install.sh'} )
+  call dein#add('jasoncodes/ctrlp-modified.vim')
+  call dein#add('airblade/vim-gitgutter')
+  call dein#add('scrooloose/nerdcommenter')
+
+  call dein#add('SirVer/ultisnips')
+  call dein#add('honza/vim-snippets')
+
+  call dein#add('jelera/vim-javascript-syntax', { 'on_ft': ['js'] })
+  call dein#add('pangloss/vim-javascript', { 'on_ft': ['js'] })
+  call dein#add('isRuslan/vim-es6', { 'on_ft': ['js'] })
+  call dein#add('moll/vim-node', { 'on_ft': ['js'] })
+  call dein#add('tpope/vim-rails', { 'on_ft': ['rb'] })
+  call dein#add('hail2u/vim-css3-syntax', { 'on_ft': ['css', 'less', 'sass', 'scss', 'html'] })
+  call dein#add('JulesWang/css.vim', { 'on_ft': ['css', 'less', 'sass', 'scss', 'html'] })
+  call dein#add('gorodinskiy/vim-coloresque', { 'on_ft': ['css', 'less', 'sass', 'scss', 'html'] })
+  call dein#add('elzr/vim-json', { 'on_ft': ['json'] })
+  call dein#add('plasticboy/vim-markdown', { 'on_ft': ['md'] })
+
+"  call dein#add('mattn/emmet-vim', { 'on_ft': ['html', 'css'] })
+
+  call dein#end()
+  call dein#save_state()
+endif
 
 " {{ general configs
 syntax on                                 " show syntax highlighting
+
 filetype plugin on
 filetype plugin indent on
 
 set nobackup                " no backup and swap files
 set history=1000
 
-set undofile                    " Save undo's after file closes
-set undodir=~/.config/nvim/undo         " where to save undo histories
-set undolevels=1000             " How many undos
-set undoreload=10000            " number of lines to save for undo
+set undofile                             " Save undo's after file closes
+set undodir=~/.config/nvim/undo          " where to save undo histories
+set undolevels=1000                      " How many undos
+set undoreload=10000                     " number of lines to save for undo
 set noswapfile
 set nowritebackup
-set autoindent                  " indent on enter
-set smartindent                 " do smart indenting when starting a new line
-set shiftround                  " indent to the closest shiftwidth
+set autoindent                            " indent on enter
+set smartindent                           " do smart indenting when starting a new line
+set shiftround                            " indent to the closest shiftwidth
 set autoread                              " Automatically read reload file from disk if
 set clipboard=unnamed                     " Default copy goes to system clipboard
 set number                                " Show line number
@@ -96,8 +100,9 @@ set wildignore+=*/.git/*,*/tmp/*,*/log/*,*/app/assets/images/*,*/vendor/assets/i
 set wildmenu                              " Enhanced command line completion
 set wildmode=list:longest                 " Complete files like a shell
 set wrap                                  " Turn on line wrapping
-set ruler                 " Show cursor position all the time
-set showcmd                 " Show incomplete commands
+set ruler                                 " Show cursor position all the time
+set showcmd                               " Show incomplete commands
+set hidden
 
 " Use only 1 space after . when joining lines instead of 2
 set nojoinspaces
@@ -115,58 +120,48 @@ nnoremap <leader>h :noh<cr>
 
 cnoreabbrev W w
 cnoreabbrev Q q
+
+colorscheme smyck
+syntax enable
+
 " }}
 
+" hint to keep lines short
+if exists('+colorcolumn')
+  set colorcolumn=80
+  highlight ColorColumn ctermbg=233
+endif
 
-" {{ airline configuration
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#right_sep = ' '
-let g:airline#extensions#tabline#right_alt_sep = '|'
-let g:airline_left_sep = ' '
-let g:airline_left_alt_sep = '|'
-let g:airline_right_sep = ' '
-let g:airline_right_alt_sep = '|'
-
-" Required for CtrlSpace integration
-let g:airline_exclude_preview = 1
-" End CtrlSpace integration
-" }}
-
-set hidden
-
-" Make those debugger statements painfully obvious
-au BufEnter *.rb syn match error contained "\<binding.pry\>"
-au BufEnter *.rb syn match error contained "\<debugger\>"
-au BufEnter *.js syn match error contained "\<console.log\>"
-au BufEnter *.js syn match error contained "\<debugger\>"
+" Silver Searcher
+map <leader>a :Ag!<space>
+map <leader>A :Ag! "<C-r>=expand('<cword>')<CR>"
 
 " ctrlp config
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_max_height = 30
 let g:ctrlp_match_window_reversed = 0
-
 let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = {
+    \ 'dir': '\v[\/](\.(git|hg|svn)|site-packages|node_modules)$',
+    \ 'file': '\v\.(exe|so|dll|pyc|debug\.js|simple\.js)$',
+    \ }
+let g:ctrlp_reuse_window = 'startify'
 
-" use silver searcher for ctrlp
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+" deoplete
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
 
-" smart way to move between windows
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <C-h> <c-w>h
-map <c-l> <c-w>l
-
-" map Silver Searcher
-map <leader>a :Ag!<space>
-
-" search for word under cursor with Silver Searcher
-map <leader>A :Ag! "<C-r>=expand('<cword>')<CR>"
+" ctrlp modifier
+map <Leader>m :CtrlPModified<CR>
+map <Leader>M :CtrlPBranch<CR>
 
 " remove hash with rockets
 vnoremap <leader>h :s/:\(\w*\) *=>/\1:/g<cr>
+
+" paste/no paste mode
+map <Leader>sp :set paste<CR>
+map <Leader>snp :set nopaste<CR>
 
 " Echo on arrow keys
 nnoremap <Left> :echoe "Use h"<CR>
@@ -174,20 +169,28 @@ nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
-map <Leader>sp :set paste<CR>
-map <Leader>snp :set nopaste<CR>
+" smart way to move between windows
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <C-h> <c-w>h
+map <c-l> <c-w>l
 
-" CtrlP
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/](\.(git|hg|svn)|site-packages|node_modules)$',
-    \ 'file': '\v\.(exe|so|dll|pyc|debug\.js|simple\.js)$',
-    \ 'link': 'some_bad_symbolic_links',
-    \ }
-let g:ctrlp_reuse_window = 'startify'
+" NerdTtee
+map <C-N> :NERDTreeTabsToggle<CR>
 
-"let g:ctrlspace_project_root_markers = [".git", ".hg", ".svn", ".bzr", "_darcs", "CVS", "proj.sln"]
+" Make those debugger statements painfully obvious
+au BufEnter *.rb syn match error contained "\<binding.pry\>"
+au BufEnter *.rb syn match error contained "\<debugger\>"
 
+" airline configuration
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_exclude_preview = 1
+
+" Neomake
+" autocmd BufReadPost,BufWritePost * Neomake
+" let g:neomake_airline = 0
+
+" UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
@@ -195,33 +198,6 @@ let g:UltiSnipsListSnippets="<c-l>"
 let g:UltiSnipsEditSplit="vertical"
 let g:ultisnips_python_style="sphinx"
 
-map <C-N> :NERDTreeTabsToggle<CR>
-
-" hint to keep lines short
-if exists('+colorcolumn')
-  set colorcolumn=80
-endif
-
-colorscheme smyck "tomorrow-night-eighties
-syntax enable
-
-highlight ColorColumn ctermbg=233
-autocmd! BufWritePost * Neomake
-
-" highlight trailing spaces in annoying red
-highlight ExtraWhitespace ctermbg=1 guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
-
-" delete trailing spaces
-function TrimWhiteSpace()
-  %s/\s*$//
-  ''
-endfunction
-map <F8> :call TrimWhiteSpace()<cr>
-
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" Emmet
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css EmmetInstall
