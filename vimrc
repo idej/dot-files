@@ -12,11 +12,12 @@ if dein#load_state(expand('~/.config/nvim/plugins/'))
   call dein#begin(expand('~/.config/nvim/plugins/'))
 
   call dein#add(expand('~/.config/nvim/plugins/repos/github.com/Shougo/dein.vim'))
-  call dein#add('Shougo/deoplete.nvim', {'on_i': 1})
+  call dein#add('Shougo/deoplete.nvim')
   call dein#add('jiangmiao/auto-pairs')
   call dein#add('brendonrapp/smyck-vim')
-"  call dein#add('benekastah/neomake')
+  call dein#add('benekastah/neomake')
   call dein#add('bling/vim-airline')
+  call dein#add('tpope/vim-surround')
   call dein#add('tpope/vim-endwise')
   call dein#add('rking/ag.vim')
   call dein#add('nathanaelkane/vim-indent-guides')
@@ -42,10 +43,11 @@ if dein#load_state(expand('~/.config/nvim/plugins/'))
   call dein#add('hail2u/vim-css3-syntax', { 'on_ft': ['css', 'less', 'sass', 'scss', 'html'] })
   call dein#add('JulesWang/css.vim', { 'on_ft': ['css', 'less', 'sass', 'scss', 'html'] })
   call dein#add('gorodinskiy/vim-coloresque', { 'on_ft': ['css', 'less', 'sass', 'scss', 'html'] })
+  call dein#add('slim-template/vim-slim', { 'on_ft': ['html', 'slim'] })
   call dein#add('elzr/vim-json', { 'on_ft': ['json'] })
   call dein#add('plasticboy/vim-markdown', { 'on_ft': ['md'] })
 
-"  call dein#add('mattn/emmet-vim', { 'on_ft': ['html', 'css'] })
+  call dein#add('mattn/emmet-vim', { 'on_ft': ['html', 'slim', 'haml', 'css'] })
 
   call dein#end()
   call dein#save_state()
@@ -151,6 +153,7 @@ let g:ctrlp_reuse_window = 'startify'
 " deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
+inoremap <expr><tab> pumvisible() ? "\<C-n>" : "\<tab>"
 
 " ctrlp modifier
 map <Leader>m :CtrlPModified<CR>
@@ -187,17 +190,20 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_exclude_preview = 1
 
 " Neomake
-" autocmd BufReadPost,BufWritePost * Neomake
-" let g:neomake_airline = 0
+"autocmd BufReadPost,BufWritePost * Neomake
+"let g:neomake_airline = 0
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsListSnippets="<c-l>"
 let g:UltiSnipsEditSplit="vertical"
 let g:ultisnips_python_style="sphinx"
 
+" indent guide
+hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey
+
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+
 " Emmet
-" let g:user_emmet_install_global = 0
-" autocmd FileType html,css EmmetInstall
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,slim,haml EmmetInstall
