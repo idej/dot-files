@@ -215,3 +215,6 @@ autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 " Emmet
 let g:user_emmet_install_global = 0
 autocmd FileType html,css,slim,haml EmmetInstall
+
+" format JSON using python json tool
+com! FormatJSON %!python -m json.tool
