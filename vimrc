@@ -35,17 +35,18 @@ if dein#load_state(expand('~/.config/nvim/plugins/'))
   call dein#add('SirVer/ultisnips')
   call dein#add('honza/vim-snippets')
 
-  call dein#add('jelera/vim-javascript-syntax', { 'on_ft': ['js'] })
-  call dein#add('pangloss/vim-javascript', { 'on_ft': ['js'] })
-  call dein#add('isRuslan/vim-es6', { 'on_ft': ['js'] })
-  call dein#add('moll/vim-node', { 'on_ft': ['js'] })
-  call dein#add('tpope/vim-rails', { 'on_ft': ['rb'] })
+  call dein#add('jelera/vim-javascript-syntax', { 'on_ft': ['javascript'] })
+  call dein#add('pangloss/vim-javascript', { 'on_ft': ['javascript'] })
+  call dein#add('isRuslan/vim-es6', { 'on_ft': ['javascript'] })
+  call dein#add('moll/vim-node', { 'on_ft': ['javascript'] })
+  call dein#add('tpope/vim-rails', { 'on_ft': ['ruby'] })
   call dein#add('hail2u/vim-css3-syntax', { 'on_ft': ['css', 'less', 'sass', 'scss', 'html'] })
   call dein#add('JulesWang/css.vim', { 'on_ft': ['css', 'less', 'sass', 'scss', 'html'] })
   call dein#add('gorodinskiy/vim-coloresque', { 'on_ft': ['css', 'less', 'sass', 'scss', 'html'] })
   call dein#add('slim-template/vim-slim', { 'on_ft': ['html', 'slim'] })
   call dein#add('elzr/vim-json', { 'on_ft': ['json'] })
   call dein#add('plasticboy/vim-markdown', { 'on_ft': ['md'] })
+  call dein#add('rust-lang/rust.vim', { 'on_ft': ['rust'] })
 
   call dein#add('mattn/emmet-vim', { 'on_ft': ['html', 'slim', 'haml', 'css'] })
 
@@ -218,3 +219,7 @@ autocmd FileType html,css,slim,haml EmmetInstall
 
 " format JSON using python json tool
 com! FormatJSON %!python -m json.tool
+
+" python support
+let g:python2_host_prog = '/usr/local/bin/python'
+" let g:python3_host_prog = '/usr/local/bin/python3'
