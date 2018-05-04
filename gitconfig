@@ -1,5 +1,5 @@
 [user]
-  name  = idej
+  name = idej
   email = idej.wrk@gmail.com
 [core]
   pager = less -FRSX
@@ -14,7 +14,7 @@
   browser = open
 [push]
   config = default
-  default = tracking
+  default = current
 [rebase]
   autosquash = true
 [merge]
@@ -34,9 +34,12 @@
   required = true
   clean = git media clean %f
   smudge = git media smudge %f
-[mergetool]
-  keepBackup = true
 [filter "lfs"]
-  clean = git-lfs clean %f
-  smudge = git-lfs smudge %f
   required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+[commit]
+  template = /Users/idej/.stCommitMsg
+[diff]
+  compactionHeuristic = true
