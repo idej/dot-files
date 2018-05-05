@@ -137,7 +137,7 @@ syntax enable
 
 " hint to keep lines short
 if exists('+colorcolumn')
-  set colorcolumn=80
+  set colorcolumn=120
   highlight ColorColumn ctermbg=233
 endif
 
