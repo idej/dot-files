@@ -32,10 +32,12 @@ echo "- nvim config"
 mkdir ~/.config/nvim/
 ln -s "$PWD/vimrc" ~/.config/nvim/init.vim
 
-#source code pro and hack nerd fonts
+#source code pro and droid nerd fonts
 {
   brew tap caskroom/fonts
   brew cask install font-source-code-pro
-  brew cask install font-hack-nerd-font
+  cd ~/Library/Fonts
+  curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+  cd -
 } > /dev/null
 
