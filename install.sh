@@ -24,6 +24,9 @@ for f in global_configs/*; do
   ln -s "$PWD/$f" "${ZDOTDIR:-$HOME}/.${f:t}"
 done
 
+echo "- nvim config"
+ln -s "$PWD/vimrc" ~/.config/nvim/init.vim
+
 #source code pro and hack nerd fonts
 {
   brew tap caskroom/fonts
