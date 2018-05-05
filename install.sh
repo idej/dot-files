@@ -5,7 +5,11 @@ echo "- iTerm2"
 brew cask install iterm2 > /dev/null
 
 echo "- NeoVim"
-brew install neovim > /dev/null
+{
+  brew install neovim python
+  pip2 install neovim
+  pip3 install neovim
+} > /dev/null
 
 echo "- tmux"
 brew install tmux > /dev/null
@@ -25,6 +29,7 @@ for f in global_configs/*; do
 done
 
 echo "- nvim config"
+mkdir ~/.config/nvim/
 ln -s "$PWD/vimrc" ~/.config/nvim/init.vim
 
 #source code pro and hack nerd fonts

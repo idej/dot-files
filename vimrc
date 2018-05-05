@@ -6,6 +6,12 @@ let mapleader = " "
 if &compatible
   set nocompatible
 endif
+
+if (!isdirectory(expand("$HOME/.config/nvim/plugins/repos/github.com/Shougo/dein.vim")))
+  call system(expand("mkdir -p $HOME/.config/nvim/plugins/repos/github.com"))
+  call system(expand("git clone https://github.com/Shougo/dein.vim $HOME/.config/nvim/plugins/repos/github.com/Shougo/dein.vim"))
+endif
+
 set runtimepath+=~/.config/nvim/plugins/repos/github.com/Shougo/dein.vim
 
 if dein#load_state(expand('~/.config/nvim/plugins/'))
@@ -221,5 +227,5 @@ autocmd FileType html,css,slim,haml EmmetInstall
 com! FormatJSON %!python -m json.tool
 
 " python support
-let g:python2_host_prog = '/usr/local/bin/python'
-" let g:python3_host_prog = '/usr/local/bin/python3'
+"let g:python2_host_prog = '/usr/local/bin/python'
+"let g:python3_host_prog = '/usr/local/bin/python3'
