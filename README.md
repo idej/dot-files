@@ -1,9 +1,22 @@
-idej dot-files
+Dot-file
 =========
+Configuration files, fonts and even wallpaper for my mac.
 
-My personal dotfiles
-
-Install
+Usage
 =========
+1. Install Homebrew
 
-run rake install (dependency: ruby and rake)
+`/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+
+2. Install git
+
+`brew install git`
+
+3. Clone this repo
+
+`git clone https://github.com/idej/dotfiles.git`
+
+4. Run install
+
+`./install.sh`
+
