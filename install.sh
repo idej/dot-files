@@ -11,6 +11,9 @@ echo "- NeoVim"
   pip3 install neovim
 } > /dev/null
 
+echo "- the Fuck"
+brew install thefuck > /dev/null
+
 echo "- tmux"
 brew install tmux > /dev/null
 
