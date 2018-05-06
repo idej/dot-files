@@ -14,6 +14,9 @@ echo "- NeoVim"
 echo "- the Fuck"
 brew install thefuck > /dev/null
 
+echo "- jq"
+brew install jq > /dev/null
+
 echo "- tmux"
 brew install tmux > /dev/null
 
