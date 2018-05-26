@@ -20,6 +20,9 @@ brew install jq > /dev/null
 echo "- tmux"
 brew install tmux > /dev/null
 
+echo "- the silver searcher"
+brew install the_silver_searcher > /dev/null
+
 echo "- prezto"
 git submodule update --init --recursive > /dev/null
 
