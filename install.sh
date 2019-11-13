@@ -23,8 +23,8 @@ brew cask install keepingyouawake > /dev/null
 echo "- tmux"
 brew install tmux > /dev/null
 
-echo "- the silver searcher"
-brew install the_silver_searcher > /dev/null
+echo "- ripgrep"
+brew install ripgrep > /dev/null
 
 echo "- prezto"
 git submodule update --init --recursive > /dev/null
